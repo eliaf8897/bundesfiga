@@ -1,0 +1,85 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>FantaLAB 2.0</title><style>
+:root{--bg:#050811;--p:#0c1220;--p2:#10182a;--l:#29364f;--t:#f7f8ff;--m:#8f9ab0;--v:#8b5cf6;--g:#35e58f;--y:#ffd166;--r:#ff5870}*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 15%,#17284a 0,transparent 28%),#050811;color:var(--t);font-family:Inter,system-ui,sans-serif}.app{max-width:1450px;margin:auto;padding:20px 22px 100px}.top{display:grid;grid-template-columns:220px 1fr auto auto;gap:15px;align-items:center}.logo{font-size:29px;font-weight:1000}.logo span{color:#a78bfa}.logo small{display:block;color:#8f9ab0;font-size:8px;letter-spacing:2px}.search{height:56px;border:1px solid var(--l);background:#0b1120;border-radius:19px;display:flex;align-items:center;padding:0 16px}.search input{width:100%;background:none;border:0;outline:0;color:white;font-size:16px}.auction{height:56px;border:1px solid var(--v);background:#1a1035;color:#c8b5ff;border-radius:18px;padding:0 22px;font-weight:900}.gear{height:56px;width:56px;border-radius:50%;border:1px solid var(--l);background:var(--p);color:white;font-size:22px}.layout{display:grid;grid-template-columns:310px 1fr;gap:16px;margin-top:16px}.box{background:linear-gradient(145deg,#0e1626,#080f1b);border:1px solid var(--l);border-radius:21px;box-shadow:0 18px 50px #0007}.side{padding:15px}.tabs,.roles{display:grid;gap:5px}.tabs{grid-template-columns:1fr 1fr;background:#080d17;padding:4px;border-radius:13px}.tabs button,.roles button{border:0;background:transparent;color:#aab4c7;padding:10px;border-radius:10px;font-weight:900}.tabs .on,.roles .on{background:linear-gradient(135deg,#7436e8,#915ff7);color:#fff}.roles{grid-template-columns:repeat(5,1fr);margin:12px 0}.roles button{border:1px solid var(--l);font-size:12px;padding:8px 2px}.select,.quick{width:100%;height:45px;border-radius:12px;border:1px solid var(--l);background:#080f1b;color:white;padding:0 12px}.quick{margin-top:10px;display:flex;align-items:center}.quick input{width:100%;border:0;outline:0;background:none;color:white}.title{font-size:10px;color:#7e899e;font-weight:900;letter-spacing:1px;margin:17px 3px 8px}.list{display:grid;gap:7px}.row{display:grid;grid-template-columns:65px 1fr auto;gap:9px;align-items:center;padding:7px;border:1px solid var(--l);background:#0b1320;border-radius:14px;color:white;text-align:left}.row:hover{border-color:var(--v)}.avatar{height:56px;border-radius:11px;background:linear-gradient(150deg,#294a83,#101827);display:grid;place-items:center;font-size:31px}.row b{font-size:14px}.row small{display:block;color:var(--m);font-size:10px;margin-top:3px}.pill{font-size:10px;font-weight:1000;padding:5px 7px;border-radius:7px}.D{background:#103d2b;color:#4beaa2}.C{background:#3e300d;color:#ffd66c}.A{background:#411a24;color:#ff8497}.P{background:#102e4d;color:#79c4ff}.mini{color:#ffd166;font-size:10px}.all{width:100%;margin-top:9px;height:42px;border:1px solid var(--v);background:#130d29;color:#c8b5ff;border-radius:12px;font-weight:900}.hero{padding:23px;position:relative;overflow:hidden;background:radial-gradient(circle at 80% 20%,#163d70aa 0,transparent 35%),linear-gradient(145deg,#111c30,#080e18)}.heroGrid{display:grid;grid-template-columns:1fr 340px;gap:15px}.first{font-size:17px;color:#dce2ef}.name{font-size:46px;line-height:.9;letter-spacing:-2px;font-weight:1000;margin:4px 0 13px}.team{display:flex;gap:9px;align-items:center;font-weight:900}.club{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#0b2c78;border:2px solid #5d83dd}.pos{color:var(--g);font-size:12px}.art{height:275px;display:grid;place-items:end center}.person{height:245px;width:205px;border-radius:45% 45% 12% 12%;background:linear-gradient(150deg,#3470cf 0 18%,#0a347f 19% 72%,#10182a 73%);position:relative;box-shadow:0 25px 55px #0009}.person:before{content:"";position:absolute;width:105px;height:120px;left:50px;top:-31px;border-radius:50%;background:#c98563;border:6px solid #e0a27e}.person:after{content:"";position:absolute;width:110px;height:42px;left:47px;top:-38px;border-radius:60% 60% 20% 20%;background:#ddd}.number{position:absolute;bottom:55px;left:72px;font-size:55px;font-weight:1000;color:#fff3}.checks{display:flex;gap:9px;margin-top:25px}.check{padding:12px 15px;border:1px solid var(--l);border-radius:13px;background:#09111d}.check strong{font-size:21px;display:block}.check small{color:var(--m);font-size:9px}.verdict{margin-top:12px;padding:15px;border:1px solid #16d87899;border-radius:18px;background:linear-gradient(145deg,#0b291c,#08170f)}.vh{display:flex;justify-content:space-between;color:#68eea8;font-size:10px;font-weight:1000;letter-spacing:1px}.vm{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px}.vm b{font-size:38px;color:#55eda2}.stats{display:grid;grid-template-columns:repeat(5,1fr);margin-top:12px;border:1px solid var(--l);border-radius:14px;overflow:hidden;background:#09111c}.stat{text-align:center;padding:11px 3px;border-right:1px solid var(--l)}.stat:last-child{border:0}.stat b{display:block;font-size:21px}.stat small{font-size:8px;color:#8792a7}.lower{display:grid;grid-template-columns:1.1fr .9fr;gap:13px;margin-top:13px}.card{padding:17px}.ct{font-size:12px;font-weight:950;margin-bottom:13px}.seasons{display:grid;grid-template-columns:1fr 1fr;gap:8px}.season,.priceItem{background:#09111d;border:1px solid var(--l);border-radius:13px;padding:13px}.season h4{font-size:10px;color:#aeb8c9;margin:0 0 10px}.ss{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.ss b{font-size:18px}.ss span{font-size:8px;color:#7e899f;display:block}.price{background:linear-gradient(145deg,#160d2e,#09111d);border-color:#473477}.pg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px}.priceItem{text-align:center}.priceItem small{font-size:8px;color:#8e99ad}.priceItem b{display:block;font-size:23px;margin-top:4px}.green{color:var(--g)}.gold{color:var(--y)}.purple{color:#c5b3ff}.note{color:#8f9ab0;font-size:11px;line-height:1.5;margin-bottom:0}.chart{height:145px;display:flex;align-items:end;gap:9px;background:#09111d;border-radius:12px;padding:12px 8px}.bar{flex:1;display:flex;flex-direction:column;justify-content:end;height:100%}.bar i{display:block;background:linear-gradient(#9d72ff,#35e58f);border-radius:6px 6px 2px 2px}.bar span{font-size:7px;color:#6e7a90;text-align:center;margin-top:3px}.nav{position:fixed;z-index:5;bottom:12px;left:50%;transform:translateX(-50%);width:min(820px,calc(100% - 24px));display:grid;grid-template-columns:repeat(5,1fr);padding:5px;background:#090f1def;backdrop-filter:blur(15px);border:1px solid #2b3650;border-radius:20px}.nav button{border:0;background:transparent;color:#8995aa;border-radius:14px;padding:8px;font-size:10px}.nav .on{background:#211443;color:#bda5ff}.nav b{display:block;font-size:18px}@media(max-width:900px){.top{grid-template-columns:1fr auto}.search{grid-column:1/-1;grid-row:2}.layout{grid-template-columns:1fr}.side{order:2}.heroGrid,.lower{grid-template-columns:1fr}}@media(max-width:520px){.app{padding:12px 9px 95px}.logo{font-size:24px}.auction{padding:0 10px}.hero{padding:17px}.name{font-size:38px}.art{height:230px}.person{height:205px;width:175px}.person:before{left:42px}.person:after{left:40px}.number{left:60px}.stats{grid-template-columns:repeat(5,1fr)}.stat b{font-size:16px}.stat small{font-size:7px}.seasons,.pg{grid-template-columns:1fr}.priceItem:last-child{grid-column:1/-1}.roles button{font-size:11px}}
+</style></head><body><div class="app"><header class="top"><div class="logo">FANTA<span>LAB</span><small>IL TUO ASSISTENTE ASTA</small></div><div class="search"><span style="font-size:22px;margin-right:9px">⌕</span><input id="global" placeholder="Cerca giocatore..." autocomplete="off"></div><button class="auction">MODALITÀ ASTA<br><b style="font-size:20px">◷ 00:18</b></button><button class="gear">⚙</button></header><main class="layout"><aside class="box side"><div class="tabs"><button class="on">♟ GIOCATORI</button><button>♜ SQUADRE</button></div><div class="roles"><button class="on" data-r="">TUTTI</button><button data-r="P">P</button><button data-r="D">D</button><button data-r="C">C</button><button data-r="A">A</button></div><select class="select" id="team"><option value="">Tutte le squadre</option></select><div class="quick">⌕ <input id="sideSearch" placeholder="Cerca giocatore..." autocomplete="off"> <span id="clear">×</span></div><div class="title">RISULTATI</div><div class="list" id="list"></div><button class="all">VEDI TUTTI I RISULTATI</button></aside><section><article class="box hero"><div class="heroGrid"><div><div class="first">Federico</div><div class="name">DIMARCO</div><div class="team"><span class="club">⚽</span><span>Inter<br><span class="pos">Difensore · Esterno Sinistro</span></span></div><div class="checks"><div class="check"><strong>4.5 ⭐</strong><small>AFFIDABILITÀ</small></div><div class="check"><strong class="green">✓</strong><small>TITOLARE PROBABILE</small></div></div></div><div class="art"><div class="person"><div class="number">32</div></div></div></div><div class="verdict"><div class="vh"><span>VERDETTO FANTALAB</span><span>ⓘ</span></div><div class="vm"><span style="font-size:30px">👑</span><b>TOP</b></div><div style="text-align:center;font-size:12px;line-height:1.5">Giocatore completo, altamente costante e fondamentale nel sistema di gioco.</div></div><div class="stats"><div class="stat"><b>17</b><small>GOL</small></div><div class="stat"><b>17</b><small>ASSIST</small></div><div class="stat"><b>33</b><small>PRESENZE</small></div><div class="stat"><b>2.381</b><small>MINUTI</small></div><div class="stat"><b class="green">6.78</b><small>FANTAMEDIA</small></div></div></article><div class="lower"><article class="box card"><div class="ct">STORICO RENDIMENTO</div><div class="seasons"><div class="season"><h4>STAGIONE 2025/26</h4><div class="ss"><div><b>33</b><span>PRES.</span></div><div><b>17</b><span>ASSIST</span></div><div><b class="green">6.78</b><span>FANTAMEDIA</span></div></div></div><div class="season"><h4>STAGIONE 2024/25</h4><div class="ss"><div><b>31</b><span>PRES.</span></div><div><b>10</b><span>ASSIST</span></div><div><b class="green">6.41</b><span>FANTAMEDIA</span></div></div></div></div><p class="note">Valutazione basata su rendimento, continuità, minutaggio, bonus, ruolo e storico. Numeri mostrati come demo.</p></article><article class="box card price"><div class="ct purple">💰 PREZZO FANTALAB</div><div class="pg"><div class="priceItem"><small>PREZZO CONSIGLIATO</small><b class="green">18–22</b></div><div class="priceItem"><small>MASSIMO DA PAGARE</small><b class="gold">24</b></div><div class="priceItem"><small>QUALITÀ/PREZZO</small><b class="purple">★★★★★</b></div></div><p class="note">Ottimo investimento: il prezzo resta sostenibile rispetto al rendimento atteso.</p></article></div><article class="box card" style="margin-top:13px"><div class="ct purple">TREND FANTAMEDIA <span class="green" style="float:right">↗ IN CRESCITA</span></div><div class="chart"><div class="bar"><i style="height:45%"></i><span>G1</span></div><div class="bar"><i style="height:58%"></i><span>G5</span></div><div class="bar"><i style="height:64%"></i><span>G10</span></div><div class="bar"><i style="height:60%"></i><span>G15</span></div><div class="bar"><i style="height:73%"></i><span>G20</span></div><div class="bar"><i style="height:79%"></i><span>G25</span></div><div class="bar"><i style="height:71%"></i><span>G30</span></div><div class="bar"><i style="height:84%"></i><span>G35</span></div></div></article></section></main></div><nav class="nav"><button class="on"><b>⌕</b>Analizza</button><button><b>⚒</b>Asta</button><button><b>♙</b>Le mie aste</button><button><b>♜</b>Squadre</button><button><b>⚙</b>Impostazioni</button></nav><script>
+let ps=[];
+let role='';
+const list=document.querySelector('#list'),team=document.querySelector('#team'),
+side=document.querySelector('#sideSearch'),global=document.querySelector('#global');
+
+function mapPlayer(p){
+  const c=p.current_season||{};
+  return {
+    id:p.id,name:String(p.name||''),team:String(p.team||''),
+    role:String(p.role||p.role_detail||'').toUpperCase(),
+    full:String(p.name||''),current:c,old:p.previous_season||{}
+  };
+}
+
+function initials(name){
+  return String(name||'⚽').split(/\s+/).filter(Boolean).slice(0,2)
+    .map(x=>x[0]).join('').toUpperCase()||'⚽';
+}
+
+async function loadPlayers(){
+  try{
+    const r=await fetch('players.json',{cache:'no-store'});
+    if(!r.ok) throw new Error();
+    const d=await r.json();
+    const arr=Array.isArray(d)?d:(d.players||d.data||[]);
+    ps=arr.map(mapPlayer);
+  }catch(e){
+    ps=[
+      {name:'Dimarco',full:'Federico Dimarco',team:'Inter',role:'D',current:{appearances:33,assists:17,favg:6.78}},
+      {name:'Dybala',full:'Paulo Dybala',team:'Roma',role:'A'},
+      {name:'Darmian',full:'Matteo Darmian',team:'Inter',role:'D'}
+    ];
+  }
+  [...new Set(ps.map(x=>x.team).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'it'))
+    .forEach(t=>team.innerHTML+=`<option>${t.replace(/</g,'&lt;')}</option>`);
+  render();
+}
+
+function render(){
+  const q=(side.value||global.value).trim().toLowerCase(),tm=team.value;
+  const a=ps.filter(p=>{
+    const hay=(p.name+' '+p.full+' '+p.team).toLowerCase();
+    return (!role||p.role===role)&&(!tm||p.team===tm)&&(!q||hay.includes(q));
+  }).slice(0,30);
+
+  list.innerHTML=a.length?a.map(p=>{
+    const c=p.current||{}, fav=c.favg!=null?Number(c.favg).toFixed(2):'—';
+    return `<button class="row" data-name="${p.name.replace(/"/g,'&quot;')}">
+      <span class="avatar">${initials(p.name)}</span>
+      <span><b>${p.name}</b><small>${p.team||'—'}</small><span class="mini">${fav} ★</span></span>
+      <span class="pill ${p.role}">${p.role||'—'}</span>
+    </button>`;
+  }).join(''):'<div style="color:#7e899f;text-align:center;padding:18px;font-size:12px">Nessun giocatore trovato.</div>';
+
+  list.querySelectorAll('.row').forEach(b=>b.onclick=()=>pick(b.dataset.name));
+}
+
+function pick(n){
+  const p=ps.find(x=>x.name===n);
+  if(!p)return;
+  const parts=p.name.trim().split(/\s+/);
+  const last=parts.length>1?parts[parts.length-1]:parts[0];
+  document.querySelector('.name').textContent=last.toUpperCase();
+  document.querySelector('.first').textContent=p.name.replace(last,'').trim()||p.name;
+  document.querySelector('.team').innerHTML=`<span class="club">⚽</span><span>${p.team||'—'}<br><span class="pos">${
+    p.role==='D'?'Difensore':p.role==='C'?'Centrocampista':p.role==='A'?'Attaccante':p.role==='P'?'Portiere':'Giocatore'
+  }</span></span>`;
+  side.value=global.value=p.name;
+  render();
+  scrollTo({top:0,behavior:'smooth'});
+}
+
+side.oninput=()=>{global.value=side.value;render()};
+global.oninput=()=>{side.value=global.value;render()};
+team.onchange=render;
+document.querySelector('#clear').onclick=()=>{side.value=global.value='';render()};
+document.querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('[data-r]').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); role=b.dataset.r; render();
+});
+loadPlayers();
+</script></body></html>
