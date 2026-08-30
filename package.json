@@ -1,0 +1,11 @@
+{
+  "name": "fantalab-ai-art",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": { "start": "node server.js" },
+  "dependencies": {
+    "@huggingface/inference": "latest",
+    "cors": "latest",
+    "express": "latest"
+  }
+}
