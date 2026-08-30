@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FantaLAB — Assistente Fantacalcio</title>
+<style>
+:root{--bg:#080a10;--panel:#111522;--panel2:#171c2b;--line:#282e40;--text:#f5f7fb;--muted:#9ba4b9;--accent:#7c5cff;--green:#35d58b;--yellow:#ffd166;--red:#ff6075}
+*{box-sizing:border-box}body{margin:0;color:var(--text);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -10%,#21194a 0,#0a0c13 44%,#07080d 100%);min-height:100vh}.wrap{max-width:1050px;width:92%;margin:auto;padding:28px 0 55px}
+header{display:flex;justify-content:space-between;align-items:center}.logo{font-size:25px;font-weight:950}.logo span{color:var(--accent)}.badge{font-size:11px;padding:8px 11px;border:1px solid #39325e;background:#17132a;border-radius:999px;color:#c9c2ff}
+.hero{text-align:center;margin:52px auto 30px;max-width:800px}.hero h1{font-size:clamp(34px,6vw,60px);line-height:1;letter-spacing:-2.8px;margin:0 0 15px}.hero h1 span{color:var(--accent)}.hero p{color:var(--muted);line-height:1.6;margin:0}
+.search{background:#101421e8;border:1px solid var(--line);padding:17px;border-radius:21px;box-shadow:0 25px 70px #0008}.row{display:flex;gap:10px}input,select{background:#0b0e16;color:white;border:1px solid #30374a;border-radius:14px;padding:16px;font-size:16px;outline:0;width:100%}input:focus,select:focus{border-color:var(--accent)}select{appearance:auto;cursor:pointer}.playerList{display:grid;gap:7px}.playerBtn{width:100%;padding:12px 14px;text-align:left;background:#151a28;border:1px solid #2b3143;border-radius:12px;color:#eef1f8;cursor:pointer;display:flex;justify-content:space-between;align-items:center}.playerBtn:hover{border-color:var(--accent);background:#1a1d31}.playerBtn span{color:var(--muted);font-size:11px}button{border:0;border-radius:14px;background:var(--accent);color:#fff;font-weight:900;padding:0 21px;cursor:pointer}.controls{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.control{background:#0b0e16;border:1px solid var(--line);border-radius:14px;padding:10px 13px}.control label{display:block;color:var(--muted);font-size:11px;margin-bottom:4px}.control input{border:0;background:transparent;padding:2px 0;font-size:16px}.error{text-align:center;color:#ff9baa;font-size:12px;margin-top:10px}.suggestions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.suggestion{background:#161a27;border:1px solid var(--line);color:#cdd3e2;padding:7px 10px;font-size:11px}
+.results{display:none;margin-top:16px}.head{display:flex;justify-content:space-between;gap:16px;background:linear-gradient(135deg,#171b2b,#111522);border:1px solid var(--line);border-radius:21px;padding:22px}.name{font-size:29px;font-weight:950;margin-bottom:6px}.role{font-size:11px;font-weight:800;color:#d0c9ff;background:#211b46;border:1px solid #3d3379;padding:5px 8px;border-radius:8px}.verdict{text-align:center;min-width:190px;background:#10241c;border:1px solid #24523e;border-radius:15px;padding:13px}.verdict b{display:block;font-size:20px;color:var(--green);text-shadow:0 0 16px rgba(53,213,139,.18)}.verdict span{font-size:11px;color:#9bd8ba}
+.seasons{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.season{background:var(--panel);border:1px solid var(--line);border-radius:19px;padding:19px}.season h2{margin:0 0 14px;font-size:16px}.tag{font-size:10px;color:#aeb6c9;margin-left:6px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{background:#0b0e16;border-radius:12px;padding:11px}.stat b{display:block;font-size:18px}.stat small{color:var(--muted);font-size:10px}
+.priceBox{margin-top:12px;background:linear-gradient(135deg,#17132d,#111522);border:1px solid #393064;border-radius:20px;padding:21px}.priceGrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.priceCard{background:#0c0f18;border:1px solid var(--line);border-radius:15px;padding:15px}.priceCard small{display:block;color:var(--muted);font-size:11px;margin-bottom:7px}.priceCard b{font-size:28px}.priceCard.primary{border-color:#4c3d92}.priceCard.primary b{color:#c9c1ff}.analysis{margin:15px 0 0;color:#cbd2e1;line-height:1.6;font-size:13px}.bar{height:9px;background:#252a3a;border-radius:99px;overflow:hidden;margin:15px 0 6px}.bar i{display:block;height:100%;background:var(--accent);width:0}.range{display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
+@media(max-width:700px){.row{flex-direction:column}button{height:51px}.controls,.seasons,.priceGrid{grid-template-columns:1fr}.head{flex-direction:column}.verdict{width:100%}.stats{grid-template-columns:1fr 1fr}}
+
+
+/* === FantaLAB PLAYER CARD ENHANCEMENT === */
+.player-hero{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:18px}
+.player-photo{width:96px;height:96px;border-radius:22px;object-fit:cover;background:linear-gradient(145deg,#262b3d,#10131c);border:2px solid rgba(124,92,255,.65);box-shadow:0 12px 35px #0007}
+.player-photo.fallback{display:flex;align-items:center;justify-content:center;color:#dcd7ff;font-weight:950;font-size:28px}
+.player-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+.stars{letter-spacing:2px;font-size:17px;color:#ffd166;text-shadow:0 0 12px rgba(255,209,102,.25)}
+.rating-label{font-size:10px;color:var(--muted)}
+.verdict{box-shadow:0 10px 30px #0005}
+.stat{position:relative;overflow:hidden;transition:transform .18s,border-color .18s,background .18s}
+.stat:hover{transform:translateY(-2px);border:1px solid #3f376d;background:#101523}
+.stat b{font-size:21px;letter-spacing:-.4px}
+.stat small{font-weight:700}
+.season h2{display:flex;align-items:center;gap:6px}
+@media(max-width:700px){
+ .player-hero{grid-template-columns:72px 1fr;gap:12px}
+ .player-photo{width:72px;height:72px;border-radius:18px}
+ .verdict{grid-column:1/-1}
+}
+
+
+/* === FantaLAB AUCTION GAUGE === */
+.verdict{min-width:250px;padding:12px 14px;border-radius:18px;background:rgba(13,17,28,.82);border:1px solid rgba(124,92,255,.28);text-align:center}
+.verdict b{display:block;font-size:18px}
+.verdictText{display:block;margin-top:3px;font-size:11px;color:var(--muted)}
+.gauge{position:relative;width:190px;height:105px;margin:9px auto 2px;overflow:hidden}
+.gauge:before{content:"";position:absolute;left:10px;top:8px;width:170px;height:170px;border-radius:50%;background:conic-gradient(from 270deg,#ff6075 0deg 55deg,#ffd166 55deg 110deg,#35d58b 110deg 165deg,#7c5cff 165deg 180deg,transparent 180deg 360deg);transform:rotate(-90deg)}
+.gauge:after{content:"";position:absolute;left:25px;top:23px;width:140px;height:140px;border-radius:50%;background:#0d111c}
+.needle{position:absolute;z-index:3;left:94px;top:29px;width:3px;height:67px;background:#f5f7fb;border-radius:5px;transform-origin:50% 100%;transform:rotate(-55deg);box-shadow:0 0 10px rgba(255,255,255,.55)}
+.needle:after{content:"";position:absolute;left:-5px;bottom:-7px;width:13px;height:13px;border-radius:50%;background:#f5f7fb}
+.gauge-label{position:absolute;z-index:4;left:0;right:0;bottom:4px;font-size:9px;color:#8992a8;display:flex;justify-content:space-between;padding:0 10px}
+.category{display:inline-block;margin-top:7px;padding:5px 10px;border-radius:999px;background:rgba(124,92,255,.14);color:#dcd7ff;font-weight:900;font-size:11px;letter-spacing:.5px}
+.buy-label{display:block;margin-top:5px;font-weight:900;font-size:11px}
+
+/* === FantaLAB STADIUM / FOOTBALL PITCH BACKGROUND === */
+body{background:#06150d !important;}
+body:before,body:after{display:none !important;}
+.pitch-bg{position:fixed;inset:0;z-index:-10;pointer-events:none;overflow:hidden;background:radial-gradient(circle at 50% 35%,rgba(50,180,105,.22),transparent 42%),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,#092b19 0%,#0d4325 50%,#092b19 100%);background-size:auto,80px 80px,80px 80px,100% 100%;}
+.pitch-bg:before{content:"";position:absolute;inset:-8%;background:repeating-linear-gradient(90deg,rgba(255,255,255,.025) 0 7%,transparent 7% 14%);transform:perspective(700px) rotateX(48deg) scale(1.3);transform-origin:center bottom;opacity:.7;}
+.pitch-lines{position:absolute;width:min(1500px,92vw);height:min(820px,72vh);left:50%;top:50%;transform:translate(-50%,-50%);border:3px solid rgba(255,255,255,.23);border-radius:18px;box-shadow:0 0 80px rgba(42,190,105,.12),inset 0 0 80px rgba(0,0,0,.15);}
+.half-line{position:absolute;left:50%;top:0;height:100%;border-left:3px solid rgba(255,255,255,.23);}
+.center-circle{position:absolute;width:190px;height:190px;left:50%;top:50%;transform:translate(-50%,-50%);border:3px solid rgba(255,255,255,.23);border-radius:50%;}
+.center-dot{position:absolute;width:10px;height:10px;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.35);border-radius:50%;}
+.box{position:absolute;top:25%;width:16%;height:50%;border:3px solid rgba(255,255,255,.21);}
+.box.left{left:0;border-left:0}.box.right{right:0;border-right:0}
+.goal{position:absolute;top:42%;width:3.2%;height:16%;border:3px solid rgba(255,255,255,.2);}
+.goal.left{left:-3.2%;border-right:0}.goal.right{right:-3.2%;border-left:0}
+.pitch-lines:after{content:"";position:absolute;left:50%;top:50%;width:55%;height:75%;transform:translate(-50%,-50%);border:2px solid rgba(255,255,255,.06);border-radius:50%;}
+</style>
+</head>
+<body>
+<div class="pitch-bg" aria-hidden="true">
+  <div class="pitch-lines">
+    <div class="half-line"></div><div class="center-circle"></div><div class="center-dot"></div>
+    <div class="box left"></div><div class="box right"></div>
+    <div class="goal left"></div><div class="goal right"></div>
+  </div>
+</div>
+
+<div class="wrap">
+<header><div class="logo">Fanta<span>LAB</span></div><div class="badge">Assistente personale</div></header>
+<section class="hero"><h1>Analizza. <span>Decidi.</span> Compra.</h1><p>Confronta la stagione precedente con quella attuale e scopri quanto FantaLAB pensa sia sensato spendere in base ai tuoi crediti.</p></section>
+<section class="search">
+<div class="row"><input id="search" placeholder="Cerca un giocatore…"><button id="go">ANALIZZA</button></div>
+<div class="controls">
+<div class="control"><label>CREDITI RIMASTI</label><input id="credits" type="number" value="500" min="0"></div>
+<div class="control"><label>CREDITI INIZIALI</label><input id="initial" type="number" value="500" min="1"></div>
+</div>
+<div class="controls" style="margin-top:10px">
+<div class="control"><label>SQUADRA</label><select id="teamFilter"><option value="">Tutte le squadre</option></select></div>
+<div class="control"><label>RUOLO</label><select id="roleFilter"><option value="">Tutti i ruoli</option><option value="P">Portieri</option><option value="D">Difensori</option><option value="C">Centrocampisti</option><option value="A">Attaccanti</option></select></div>
+</div>
+<div id="playerList" style="display:none;margin-top:12px"></div>
+<div id="suggestions" class="suggestions"></div><div id="error" class="error"></div>
+</section>
+
+<section id="results" class="results">
+<div class="head player-hero">
+<div id="photoWrap" class="player-photo fallback">⚽</div>
+<div>
+  <div id="name" class="name">—</div>
+  <div class="player-meta"><span id="role" class="role">—</span><span id="stars" class="stars">★★★★★</span><span id="ratingLabel" class="rating-label">Valutazione FantaLAB</span></div>
+</div>
+<div class="verdict">
+  <b id="verdict">—</b>
+  <span id="verdictText">—</span>
+  <div class="gauge"><div id="needle" class="needle"></div><div class="gauge-label"><span>DA EVITARE</span><span>TOP</span></div></div>
+  <span id="category" class="category">—</span>
+  <span id="buyLabel" class="buy-label">—</span>
+</div>
+</div>
+
+<div class="seasons">
+<div class="season"><h2>📅 Stagione 2025/26 <span class="tag">STORICO</span></h2><div class="stats">
+<div class="stat"><b id="oldApps">—</b><small>Presenze</small></div><div class="stat"><b id="oldGoals">—</b><small id="oldGoalsLabel">Gol</small></div><div class="stat"><b id="oldAssists">—</b><small id="oldAssistsLabel">Assist</small></div><div class="stat" id="oldPenaltyCard"><b id="oldPenalty">—</b><small>Rigori segnati</small></div><div class="stat" id="oldCleanCard"><b id="oldCleanSheets">—</b><small>Clean sheet</small></div><div class="stat"><b id="oldFav">—</b><small>Fanta-media</small></div></div></div>
+<div class="season"><h2>🔥 Stagione 2026/27 <span class="tag">ATTUALE</span></h2><div class="stats">
+<div class="stat"><b id="apps">—</b><small>Presenze</small></div><div class="stat"><b id="goals">—</b><small id="goalsLabel">Gol</small></div><div class="stat" id="assistsCard"><b id="assists">—</b><small id="assistsLabel">Assist</small></div><div class="stat" id="penaltyCard"><b id="penalty">—</b><small>Rigori segnati</small></div><div class="stat" id="cleanCard"><b id="cleanSheets">—</b><small id="cleanSheetsLabel">Clean sheet</small></div><div class="stat"><b id="fav">—</b><small>Fanta-media</small></div></div></div>
+</div>
+
+<div class="priceBox"><h2 style="margin:0 0 15px;font-size:17px">💰 Valutazione FantaLAB</h2>
+<div class="priceGrid">
+<div class="priceCard"><small>PREZZO CONSIGLIATO</small><b id="recommended">—</b></div>
+<div class="priceCard primary"><small>MASSIMO DA PAGARE</small><b id="maximum">—</b></div>
+<div class="priceCard"><small>BUDGET RIMASTO</small><b id="budget">—</b></div>
+</div>
+<div class="bar"><i id="bar"></i></div><div class="range"><span id="low">—</span><span id="high">—</span></div>
+<p id="analysis" class="analysis">—</p>
+</div>
+</section>
+<footer style="text-align:center;color:#626b82;font-size:11px;margin-top:40px">FantaLAB • analisi personale • i prezzi sono stime dell'algoritmo</footer>
+</div>
+
+<script>
+let players=[];
+const previousAssistMap={"5841":0,"5116":0,"4431":0,"6966":1,"4312":0,"2521":0,"572":1,"133":0,"4360":0,"6482":0,"5876":0,"2134":0,"6462":1,"7332":0,"6641":0,"4236":0,"218":0,"2170":0,"2814":0,"2297":0,"4":0,"7172":0,"4929":0,"6650":0,"7301":0,"2809":0,"6403":0,"158":0,"219":0,"1926":0,"1930":0,"7337":0,"2401":0,"6523":0,"2815":0,"6813":0,"2845":0,"6662":0,"610":0,"4518":0,"4867":0,"5320":0,"7363":0,"543":0,"2127":0,"3":0,"4957":1,"254":17,"7181":0,"4159":0,"2788":3,"2296":2,"2120":4,"5022":0,"4409":0,"4976":4,"4317":1,"6956":1,"6217":2,"5833":0,"2816":1,"5750":0,"5526":1,"6869":0,"5885":2,"4807":2,"5514":0,"5520":4,"6989":0,"6046":0,"554":1,"6042":0,"4734":3,"4210":1,"6531":0,"6814":1,"4657":2,"6496":0,"5427":1,"1852":3,"6664":0,"5862":2,"4994":1,"5555":2,"787":0,"5701":3,"5877":1,"460":0,"4401":0,"4751":1,"2724":1,"6672":0,"6642":1,"5010":2,"6485":0,"6916":0,"4887":1,"7219":3,"7212":0,"4433":2,"6867":3,"6660":1,"4177":0,"5620":0,"2188":2,"6632":0,"6990":0,"4502":3,"6202":0,"6663":0,"6495":0,"7253":0,"7329":3,"2640":0,"7068":0,"5678":4,"7274":1,"6893":1,"5449":1,"2593":5,"6766":1,"7240":0,"5840":0,"6986":4,"6426":2,"7069":0,"7268":0,"4461":3,"7014":1,"5603":0,"5831":0,"5739":1,"5273":1,"7235":0,"5307":0,"6631":0,"4374":1,"5851":0,"4263":0,"5820":1,"5527":2,"7312":0,"5578":0,"5498":0,"7326":0,"7125":0,"4378":0,"7175":1,"7012":0,"7131":1,"7211":2,"7238":0,"7255":2,"4772":0,"6985":0,"6925":0,"5994":1,"6821":0,"7154":0,"6896":1,"6977":0,"791":0,"2263":0,"2728":0,"6883":0,"7182":0,"7202":0,"252":0,"5812":0,"487":0,"7346":0,"418":0,"6245":0,"294":0,"6039":0,"327":0,"7164":0,"6809":1,"5481":1,"6149":0,"7260":0,"6189":0,"7156":0,"7356":0,"6875":5,"2194":4,"4777":2,"2167":1,"2423":4,"2379":4,"7126":3,"5559":4,"2766":5,"1870":9,"4973":6,"6908":3,"632":0,"2517":2,"5800":3,"7314":2,"5687":3,"5792":1,"5119":2,"7129":8,"6884":5,"2606":3,"6844":3,"5823":2,"152":2,"4220":1,"6684":3,"4179":0,"6151":4,"5562":2,"4892":3,"536":5,"7223":0,"5589":3,"5844":3,"5888":0,"530":2,"2077":3,"184":2,"1933":2,"6274":0,"2848":0,"5500":1,"6398":1,"6717":0,"4364":4,"2765":1,"4436":4,"4465":3,"6294":0,"7070":2,"827":2,"4287":0,"779":1,"5735":4,"5858":0,"4870":1,"6010":0,"5791":0,"4459":1,"5504":1,"4856":0,"6666":1,"6190":4,"6218":0,"6680":0,"4479":3,"5422":5,"5298":1,"5036":4,"6678":0,"6020":1,"5761":0,"6549":1,"6593":1,"4349":4,"2528":1,"6170":1,"5674":3,"7146":0,"6640":1,"7127":0,"5998":2,"7341":0,"2529":1,"5685":0,"6629":0,"6015":3,"7318":1,"4686":3,"7203":1,"6898":1,"6984":0,"6677":0,"7036":0,"6827":1,"7198":0,"5319":1,"6618":0,"22":2,"6054":0,"6895":3,"1871":1,"6424":0,"6206":0,"6506":0,"4970":1,"5301":2,"4911":0,"333":3,"7322":0,"5453":3,"4199":1,"6252":0,"6207":1,"6271":2,"6005":2,"7208":2,"6024":0,"4947":1,"6917":1,"5813":1,"7248":0,"5457":0,"5295":0,"5131":0,"7138":0,"7209":1,"7183":0,"5872":0,"6815":1,"6980":0,"6219":0,"6246":1,"7165":0,"7357":0,"6191":2,"7345":0,"6410":0,"7319":0,"7276":0,"7157":0,"5007":0,"6889":0,"6212":0,"5585":2,"2764":6,"4871":6,"6052":5,"2097":1,"6434":6,"7017":1,"6435":5,"2137":1,"5637":4,"4510":3,"531":4,"5995":5,"7071":3,"6675":1,"309":7,"6060":9,"2061":0,"4371":1,"7351":0,"7023":0,"6572":1,"4463":4,"4728":3,"2038":3,"5734":5,"6967":1,"4923":1,"6229":0,"5672":2,"7313":0,"2531":0,"7347":0,"6646":3,"5544":2,"2155":0,"6643":1,"4359":1,"6164":1,"6669":4,"7252":0,"608":1,"5918":1,"2832":1,"6556":2,"7008":1,"6831":3,"4896":1,"6519":0,"7213":0,"2012":0,"6145":1,"6243":1,"7374":0,"313":0,"7162":6,"7120":2,"6215":0,"7349":1,"7272":0,"7128":1,"6822":0,"7001":0,"7342":1,"7249":0,"7338":0,"7317":0,"7027":0,"6981":0,"7158":0,"7161":1};
+const $=id=>document.getElementById(id);
+const n=v=>{if(v===null||v===undefined||v==="")return null;let x=Number(String(v).replace(",","."));return Number.isFinite(x)?x:null};
+const norm=s=>String(s??"").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\\s+/g," ").trim();
+function fmt(v,d=2){return v===null||v===undefined?"—":Number(v).toFixed(d)}
+function find(q){let x=norm(q);if(!x)return null;return players.find(p=>norm(p.name)===x)||players.find(p=>norm(p.name).startsWith(x))||players.find(p=>norm(p.name).includes(x))}
+function map(p){
+ const c=p.current_season||{};
+ const gk=String(p.role||"").toUpperCase()==="P";
+ return {
+  raw:p,name:String(p.name??""),team:p.team,role:p.role_detail||p.role,
+  avg:n(c.avg),favg:n(c.favg),apps:n(c.appearances),
+  goals:gk?0:(n(c.goals)??0),
+  assists:gk?0:(n(c.assists)??0),
+  old:{...(p.previous_season||{}),assists:(p.previous_season?.assists??previousAssistMap[String(p.id)])}
+ }
+}
+function filteredPlayers(){
+ const team=$("teamFilter").value, role=$("roleFilter").value;
+ return players.filter(p=>(!team||String(p.raw.team)===team)&&(!role||String(p.raw.role).toUpperCase()===role));
+}
+function renderPlayerList(){
+ const list=filteredPlayers();
+ const box=$("playerList");
+ if(!$("teamFilter").value && !$("roleFilter").value){box.style.display="none";box.innerHTML="";return}
+ box.style.display="block"; box.className="playerList";
+ if(!list.length){box.innerHTML='<div style="color:var(--muted);font-size:12px;padding:10px">Nessun giocatore trovato.</div>';return}
+ box.innerHTML=list.map((p,i)=>`<button class="playerBtn" data-i="${i}"><b>${p.name}</b><span>${p.team} • ${p.role||"—"}</span></button>`).join("");
+ box.querySelectorAll(".playerBtn").forEach((b,i)=>b.onclick=()=>{
+   const p=list[i]; $("search").value=p.name; analyzePlayer(p);
+   window.scrollTo({top:$("results").offsetTop-15,behavior:"smooth"});
+ });
+}
+async function load(){
+ try{
+  let r=await fetch("players.json",{cache:"no-store"});if(!r.ok)throw Error();
+  let d=await r.json();players=(Array.isArray(d)?d:(d.players||d.data||[])).map(map);
+  const teams=[...new Set(players.map(p=>p.raw.team).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"it"));
+  $("teamFilter").innerHTML='<option value="">Tutte le squadre</option>'+teams.map(t=>`<option value="${String(t).replace(/"/g,"&quot;")}">${t}</option>`).join("");
+  $("suggestions").innerHTML=players.slice(0,7).map(p=>`<button class="suggestion">${p.name}</button>`).join("");
+  document.querySelectorAll(".suggestion").forEach(b=>b.onclick=()=>{$("search").value=b.textContent;analyze()});
+  $("teamFilter").onchange=renderPlayerList;
+  $("roleFilter").onchange=renderPlayerList;
+ }catch(e){$("error").textContent="Impossibile caricare players.json. Controlla che sia nella stessa cartella di index.html."}
+}
+function price(p){
+ const budget=Math.max(0,n($("credits").value)??500), initial=Math.max(1,n($("initial").value)??500);
+ const role=String(p.raw.role||p.raw.role_detail||"").toUpperCase();
+ const isGK=role==="P";
+ const old=p.old||{};
+ const oldF=n(old.favg), curF=p.favg;
+ const oldA=n(old.appearances), curA=p.apps;
+ const oldG=isGK?n(old.goals_conceded):n(old.goals), curG=isGK?n(p.raw.current_season?.goals_conceded):n(p.raw.current_season?.goals);
+ const oldAs=isGK?n(old.penalty_saved):n(old.assists), curAs=isGK?n(p.raw.current_season?.penalty_saved):n(p.raw.current_season?.penalty_scored);
+ // Blend current and previous season. When current sample is tiny, lean more on history.
+ const sample=Math.max(0,Math.min(1,(curA??0)/10));
+ const f=(oldF!=null&&curF!=null)?oldF*(1-sample*.7)+curF*(.7*sample):curF??oldF??6;
+ const apps=(oldA!=null&&curA!=null)?oldA*(1-sample*.7)+curA*(.7*sample):curA??oldA??0;
+ const goals=(oldG??0)*(1-sample*.7)+(curG??0)*(.7*sample);
+ const assists=(oldAs??0)*(1-sample*.7)+(curAs??0)*(.7*sample);
+ // Performance score relative to a neutral 6.0 fantasy average.
+ let score=Math.max(.15,Math.min(1.35,(f-5.4)*.72 + Math.min(apps/34,.95)*.28 + Math.min(goals/15,.8)*.20 + Math.min(assists/12,.8)*.12));
+ // Role budgets: keep goalkeepers much cheaper than attackers.
+ const share={P:.045,D:.075,C:.105,A:.18}[role]??.09;
+ // Use a modest quality multiplier, not a huge direct percentage.
+ let max=budget*share*(.55+score*.65);
+ // Historical/current stability bonus, but avoid making tiny samples expensive.
+ if((oldA??0)>=25)max*=1.06;
+ if((curA??0)>=8)max*=1.04;
+ max=Math.max(1,Math.min(budget,Math.round(max/2)*2));
+ const min=Math.max(1,Math.round(max*.78/2)*2);
+ return {budget,initial,f,apps,goals,assists,min,max};
+}
+
+function initials(name){
+ const parts=String(name||"").trim().split(/\s+/).filter(Boolean);
+ return (parts.slice(0,2).map(x=>x[0]).join("")||"⚽").toUpperCase();
+}
+function setPhotoFallback(name){
+ const w=$("photoWrap");
+ w.className="player-photo fallback";
+ w.textContent=initials(name);
+}
+async function loadPlayerPhoto(p){
+ const w=$("photoWrap");
+ setPhotoFallback(p.name);
+ try{
+   const q=encodeURIComponent(String(p.name||"")+" "+String(p.team||""));
+   const u="https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch="+q+
+           "&gsrnamespace=0&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=320&format=json&origin=*";
+   const res=await fetch(u);
+   const data=await res.json();
+   const pages=data.query&&data.query.pages?Object.values(data.query.pages):[];
+   const thumb=pages[0]&&pages[0].thumbnail&&pages[0].thumbnail.source;
+   if(thumb){
+     w.className="player-photo";
+     w.innerHTML='<img alt="" src="'+thumb.replace(/"/g,"&quot;")+'" style="width:100%;height:100%;object-fit:cover;border-radius:20px">';
+   }
+ }catch(e){ /* keep initials fallback */ }
+}
+function renderStars(p,r){
+ const base = Math.max(1,Math.min(5,Math.round(1 + ((r.f-5.2)*1.7) + Math.min((r.apps||0)/60,.8))));
+ $("stars").textContent="★".repeat(base)+"☆".repeat(5-base);
+ $("ratingLabel").textContent=base+"/5 · Valutazione FantaLAB";
+}
+
+function analyzePlayer(p){
+ $("error").textContent="";
+ if(!p){$("results").style.display="none";$("error").textContent=players.length?"Giocatore non trovato.":"Database non ancora caricato.";return}
+ const isGK=String(p.raw.role||"").toUpperCase()==="P";
+ const c=p.raw.current_season||{}, o=p.old||{}, r=price(p);
+ $("results").style.display="block";
+ $("name").textContent=p.name+ (p.team?" • "+p.team:"");
+ loadPlayerPhoto(p);
+ renderStars(p,r);
+ $("role").textContent=p.role||"—";
+ $("oldApps").textContent=o.appearances??"—";
+ $("apps").textContent=c.appearances??"—";$("fav").textContent=fmt(c.favg);$("oldFav").textContent=fmt(o.favg);
+ $("oldGoalsLabel").textContent=isGK?"Gol subiti":"Gol";
+ $("goalsLabel").textContent=isGK?"Gol subiti":"Gol";
+ $("oldGoals").textContent=isGK?(o.goals_conceded??"—"):(o.goals??"—");
+ $("goals").textContent=isGK?(c.goals_conceded??"—"):(c.goals??"—");
+ if(isGK){
+   $("oldAssistsLabel").textContent="Rigori parati"; $("assistsLabel").textContent="Rigori parati";
+   $("oldAssists").textContent=o.penalty_saved??"—"; $("assists").textContent=c.penalty_saved??"—";
+   $("oldPenaltyCard").style.display="none"; $("penaltyCard").style.display="none";
+   $("oldCleanCard").style.display="block"; $("cleanCard").style.display="block";
+   $("oldCleanSheets").textContent=o.clean_sheets??"—"; $("cleanSheets").textContent=c.clean_sheets??"—";
+ }else{
+   $("oldAssistsLabel").textContent="Assist"; $("assistsLabel").textContent="Assist";
+   $("oldAssists").textContent=(o.assists??previousAssistMap[String(p.raw.id)]??"—"); $("assists").textContent=c.assists??p.raw.assists??"—";
+   $("oldPenalty").textContent=o.penalty_scored??"—"; $("penalty").textContent=c.penalty_scored??"—";
+   $("oldPenaltyCard").style.display="block"; $("penaltyCard").style.display="block";
+   $("oldCleanCard").style.display="none"; $("cleanCard").style.display="none";
+ }
+ $("recommended").textContent=r.min+"–"+r.max;$("maximum").textContent=r.max;$("budget").textContent=r.budget;
+ $("low").textContent="Zona conveniente: "+r.min;$("high").textContent="Massimo: "+r.max;
+ $("bar").style.width=Math.min(100,(r.max/Math.max(1,r.budget))*100)+"%";
+ const quality=Math.max(0,Math.min(1,(r.f-.15)/1.2));
+ let category="LASCIA STARE";
+ if(quality>=.78) category="TOP PLAYER";
+ else if(quality>=.60) category="SEMI-TOP";
+ else if(quality>=.40) category="SCOMMESSA";
+ const needleDeg=-82+(quality*164);
+ $("needle").style.transform="rotate("+needleDeg+"deg)";
+ $("category").textContent=category;
+ let v="CONVIENE";
+ let t="Il prezzo è dentro il limite FantaLAB.";
+ let buy="✓ CONVIENE PRENDERLO";
+ if(r.max<=0 || r.max<r.min){v="NON CONVIENE";t="Il prezzo supera la fascia utile.";buy="✕ NON CONVIENE";}
+ else if(r.max<=r.min+2){v="CONVIENE";t="Prezzo molto vicino alla fascia consigliata.";buy="✓ CONVIENE PRENDERLO";}
+ else {buy="✓ CONVIENE, MA SENZA ESAGERARE";}
+ if(category==="LASCIA STARE"){v="NON CONVIENE";t="Profilo poco interessante rispetto al rischio/prezzo.";buy="✕ LASCIA STARE";}
+ $("verdict").textContent=v;$("verdictText").textContent=t;$("buyLabel").textContent=buy;
+ $("analysis").innerHTML=`FantaLAB confronta <b>2025/26</b> e <b>2026/27</b>. La stima tiene conto di fanta-media, presenze, gol, assist e ruolo, dando più peso allo storico quando la stagione attuale ha ancora poche partite. Con <b>${r.budget} crediti</b> rimasti, il limite operativo stimato è <b>${r.max} crediti</b>. È una stima strategica, non una quotazione ufficiale.`;
+}
+function analyze(){ analyzePlayer(find($("search").value)); }
+$("go").onclick=analyze;$("search").addEventListener("keydown",e=>{if(e.key==="Enter")analyze()});$("credits").addEventListener("input",()=>{if($("results").style.display==="block")analyze()});
+load();
+</script>
+</body></html>
