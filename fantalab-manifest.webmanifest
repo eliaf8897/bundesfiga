@@ -1,0 +1,20 @@
+{
+  "name": "FantaLAB",
+  "short_name": "FantaLAB",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#080a10",
+  "theme_color": "#080a10",
+  "icons": [
+    {
+      "src": "fantalab-icon-180.png?v=4",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "fantalab-icon-512.png?v=4",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
